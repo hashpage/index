@@ -4,3 +4,6 @@
 [submodule "skins/pagebout/start"]
 	path = skins/pagebout/start
 	url = git://github.com/pagebout/pbs-start.git
+[submodule "widgets/pagebout/bio"]
+	path = widgets/pagebout/bio
+	url = git://github.com/pagebout/pbw-bio.git
