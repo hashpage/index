@@ -22,3 +22,6 @@
 [submodule "widgets/pagebout/tweets"]
 	path = widgets/pagebout/tweets
 	url = git://github.com/pagebout/pbw-tweets.git
+[submodule "widgets/pagebout/activity"]
+	path = widgets/pagebout/activity
+	url = git://github.com/pagebout/pbw-activity.git
