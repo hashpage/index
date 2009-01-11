@@ -117,6 +117,20 @@ def bake_all(type, path, dest)
   end
 end
 
+def pull(dir)
+  puts "cd " + dir_color(dir)
+  Dir.chdir(dir) do
+    sys("git pull 1>&2")
+  end
+end
+
+def pull_all(root)
+  Dir.glob(File.join(root, "**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    pull(dir[0..-6])
+  end
+end
+
 #############################################################################
 
 #----------------------------------------------------------------------------
@@ -134,6 +148,12 @@ task :bake do
   bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"))
   bake_all(:skin, SKINS, File.join(DEPLOY, "skins"))
   print_bake_counters()
+end
+
+#----------------------------------------------------------------------------
+desc "pull all submodules"
+task :pull do
+  pull_all(ROOT)
 end
 
 #----------------------------------------------------------------------------
