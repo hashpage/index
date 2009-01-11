@@ -19,3 +19,6 @@
 [submodule "widgets/pagebout/videos"]
 	path = widgets/pagebout/videos
 	url = git://github.com/pagebout/pbw-videos.git
+[submodule "widgets/pagebout/tweets"]
+	path = widgets/pagebout/tweets
+	url = git://github.com/pagebout/pbw-tweets.git
