@@ -1,0 +1,141 @@
+#!/usr/bin/env ruby
+
+ROOT = File.expand_path('.')
+TEMP = File.join(ROOT, 'temp')
+DEPLOY = File.join(ROOT, 'bakery')
+WIDGETS = File.join(ROOT, "widgets")
+SKINS = File.join(ROOT, "skins")
+
+OSX = PLATFORM =~ /darwin/
+WIN = PLATFORM =~ /win32/
+NIX = !(OSX || WIN)
+
+require "rubygems"
+
+begin
+  require 'pbdev'
+rescue LoadError
+  begin
+    $: << "/Users/darwin/code/pbdev/lib"
+    require 'pbdev'
+  rescue LoadError
+    raise 'Please install pbdev: sudo gem install pagebout-pbdev --source http://gems.github.com'
+  end
+end
+include PBDev
+
+# http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
+begin
+  require 'Win32/Console/ANSI' if WIN
+rescue LoadError
+  raise 'You must "sudo gem install win32console" to use terminal colors on Windows'
+end
+
+def colorize(text, color_code)
+  "#{color_code}#{text}\e[0m"
+end
+
+def red(text); colorize(text, "\e[31m"); end
+def green(text); colorize(text, "\e[32m"); end
+def yellow(text); colorize(text, "\e[33m"); end
+def blue(text); colorize(text, "\e[34m"); end
+def magenta(text); colorize(text, "\e[35m"); end
+def azure(text); colorize(text, "\e[36m"); end
+def white(text); colorize(text, "\e[37m"); end
+def black(text); colorize(text, "\e[30m"); end
+
+def file_color(text); yellow(text); end
+def dir_color(text); blue(text); end
+def cmd_color(text); azure(text); end
+
+#############################################################################
+
+def sanitize_path(path)
+  path = path.gsub('/', '\\') if WIN
+  path = path.gsub('sudo ', '') if WIN
+  path
+end
+
+def system(path, *params)
+  path = sanitize_path(path)
+  puts yellow(">> #{path} #{params.join(' ')}")
+  Kernel.system(path, *params)
+end
+
+def sys(cmd, verbose = true)
+  puts yellow("> #{cmd}") if verbose
+  `#{sanitize_path(cmd)}`
+end
+
+def die(s)
+  puts red(s)
+  exit(1)
+end
+
+def relativize_path(path)
+  return path unless path[0..ROOT.size-1] == ROOT
+  path[ROOT.size+1..-1]
+end
+
+#############################################################################
+
+def reset_bake_counters()
+  $bake_counters = {
+    :widget => {
+      :authors => 0,
+      :total => 0
+    },
+    :skin => {
+      :authors => 0,
+      :total => 0
+    }
+  }
+end
+
+def print_bake_counters()
+  puts "Processed #{azure("#{$bake_counters[:skin][:total]} skins")} / #{$bake_counters[:skin][:authors]} authors"
+  puts "          #{azure("#{$bake_counters[:widget][:total]} widgets")} / #{$bake_counters[:widget][:authors]} authors"
+end
+
+def bake(type, path, dest)
+  sys("pbdev bake #{type.to_s} \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
+  $bake_counters[type][:total] += 1
+end
+
+def bake_author(type, path, dest)
+  $bake_counters[type][:authors] += 1
+  Dir.glob(File.join(path, "*")) do |path|
+    next unless File.directory? path
+    bake(type, path, File.join(dest, File.basename(path)))
+  end
+end
+
+def bake_all(type, path, dest)
+  Dir.glob(File.join(path, "*")) do |author_path|
+    next unless File.directory? author_path
+    bake_author(type, author_path, File.join(dest, File.basename(author_path)))
+  end
+end
+
+#############################################################################
+
+#----------------------------------------------------------------------------
+desc "start dev server"
+task :start do
+  sys("pbdev 1>&2")
+end
+
+#----------------------------------------------------------------------------
+desc "bake production files"
+task :bake do
+  die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
+  sys("rm -rf \"#{DEPLOY}\"")
+  reset_bake_counters()
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"))
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"))
+  print_bake_counters()
+end
+
+#----------------------------------------------------------------------------
+
+task :default => :start
