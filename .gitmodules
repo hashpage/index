@@ -7,3 +7,6 @@
 [submodule "widgets/pagebout/bio"]
 	path = widgets/pagebout/bio
 	url = git://github.com/pagebout/pbw-bio.git
+[submodule "widgets/pagebout/presence"]
+	path = widgets/pagebout/presence
+	url = git://github.com/pagebout/pbw-presence.git
