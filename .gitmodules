@@ -1,0 +1,3 @@
+[submodule "widgets/pagebout/tabs"]
+	path = widgets/pagebout/tabs
+	url = git://github.com/pagebout/pbw-tabs.git
