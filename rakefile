@@ -170,5 +170,31 @@ task :pull do
 end
 
 #----------------------------------------------------------------------------
+desc "add widget into index, eats :user and :repo"
+task :add_widget do
+  user = ENV["user"] or die("you have to specify github user (user=defunkt)")
+  repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbw-coolbar)")
+  dest = repo
+  dest = repo[4..-1] if repo=~/^pbw-/
+  sys("git submodule add git://github.com/#{user}/#{repo}.git widgets/#{user}/#{dest}")
+  Dir.chdir("widgets/#{user}/#{dest}") do
+    sys("git remote add push git@github.com:#{user}/#{repo}.git")
+  end
+end
+
+#----------------------------------------------------------------------------
+desc "add skin into index, eats :user and :repo"
+task :add_skin do
+  user = ENV["user"] or die("you have to specify github user (user=defunkt)")
+  repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbs-skinner)")
+  dest = repo
+  dest = repo[4..-1] if repo=~/^pbs-/
+  sys("git submodule add git://github.com/#{user}/#{repo}.git skins/#{user}/#{dest}")
+  Dir.chdir("skins/#{user}/#{dest}") do
+    sys("git remote add push git@github.com:#{user}/#{repo}.git")
+  end
+end
+
+#----------------------------------------------------------------------------
 
 task :default => :start

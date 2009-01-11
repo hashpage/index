@@ -10,3 +10,6 @@
 [submodule "widgets/pagebout/presence"]
 	path = widgets/pagebout/presence
 	url = git://github.com/pagebout/pbw-presence.git
+[submodule "widgets/pagebout/popeye"]
+	path = widgets/pagebout/popeye
+	url = git://github.com/pagebout/pbw-popeye.git
