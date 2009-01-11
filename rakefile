@@ -153,6 +153,17 @@ task :bake do
 end
 
 #----------------------------------------------------------------------------
+desc "bake files for local development"
+task :bake_local do
+  die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
+  sys("rm -rf \"#{DEPLOY}\"")
+  reset_bake_counters()
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.local")
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.local")
+  print_bake_counters()
+end
+
+#----------------------------------------------------------------------------
 desc "pull all submodules"
 task :pull do
   pull_all(ROOT)
