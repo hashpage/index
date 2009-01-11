@@ -13,3 +13,6 @@
 [submodule "widgets/pagebout/popeye"]
 	path = widgets/pagebout/popeye
 	url = git://github.com/pagebout/pbw-popeye.git
+[submodule "widgets/pagebout/pictures"]
+	path = widgets/pagebout/pictures
+	url = git://github.com/pagebout/pbw-pictures.git
