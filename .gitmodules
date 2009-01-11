@@ -1,3 +1,6 @@
 [submodule "widgets/pagebout/tabs"]
 	path = widgets/pagebout/tabs
 	url = git://github.com/pagebout/pbw-tabs.git
+[submodule "skins/pagebout/start"]
+	path = skins/pagebout/start
+	url = git://github.com/pagebout/pbs-start.git
