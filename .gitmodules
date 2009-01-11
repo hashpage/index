@@ -28,3 +28,6 @@
 [submodule "widgets/pagebout/blog"]
 	path = widgets/pagebout/blog
 	url = git://github.com/pagebout/pbw-blog.git
+[submodule "widgets/pagebout/bookmarks"]
+	path = widgets/pagebout/bookmarks
+	url = git://github.com/pagebout/pbw-bookmarks.git
