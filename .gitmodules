@@ -25,3 +25,6 @@
 [submodule "widgets/pagebout/activity"]
 	path = widgets/pagebout/activity
 	url = git://github.com/pagebout/pbw-activity.git
+[submodule "widgets/pagebout/blog"]
+	path = widgets/pagebout/blog
+	url = git://github.com/pagebout/pbw-blog.git
