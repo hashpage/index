@@ -97,23 +97,25 @@ def print_bake_counters()
   puts "          #{azure("#{$bake_counters[:widget][:total]} widgets")} / #{$bake_counters[:widget][:authors]} authors"
 end
 
-def bake(type, path, dest)
-  sys("pbdev bake #{type.to_s} \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
+def bake(type, path, dest, url)
+  sys("pbdev bake #{type.to_s} --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
   $bake_counters[type][:total] += 1
 end
 
-def bake_author(type, path, dest)
+def bake_author(type, path, dest, url)
   $bake_counters[type][:authors] += 1
   Dir.glob(File.join(path, "*")) do |path|
     next unless File.directory? path
-    bake(type, path, File.join(dest, File.basename(path)))
+    name = File.basename(path)
+    bake(type, path, File.join(dest, name), url+"/"+name)
   end
 end
 
-def bake_all(type, path, dest)
+def bake_all(type, path, dest, url)
   Dir.glob(File.join(path, "*")) do |author_path|
     next unless File.directory? author_path
-    bake_author(type, author_path, File.join(dest, File.basename(author_path)))
+    name = File.basename(author_path)
+    bake_author(type, author_path, File.join(dest, name), url+"/"+name)
   end
 end
 
@@ -145,8 +147,8 @@ task :bake do
   die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
   sys("rm -rf \"#{DEPLOY}\"")
   reset_bake_counters()
-  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"))
-  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"))
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.com")
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.com")
   print_bake_counters()
 end
 
