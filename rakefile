@@ -106,6 +106,7 @@ def print_bake_counters()
 end
 
 def bake(type, path, dest, url)
+  return unless File.exists? path
   sys("pbdev bake #{type.to_s} --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
   $bake_counters[type][:total] += 1
 end
@@ -120,6 +121,7 @@ def bake_author(type, path, dest, url)
 end
 
 def bake_all(type, path, dest, url)
+  return unless File.exists? path
   Dir.glob(File.join(path, "*")) do |author_path|
     next unless File.directory? author_path
     name = File.basename(author_path)
