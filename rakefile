@@ -5,6 +5,8 @@ TEMP = File.join(ROOT, 'temp')
 DEPLOY = File.join(ROOT, 'bakery')
 WIDGETS = File.join(ROOT, "widgets")
 SKINS = File.join(ROOT, "skins")
+ENGINE = File.join(ROOT, "engine")
+EDITOR = File.join(ROOT, "editor")
 
 OSX = PLATFORM =~ /darwin/
 WIN = PLATFORM =~ /win32/
@@ -88,6 +90,12 @@ def reset_bake_counters()
     :skin => {
       :authors => 0,
       :total => 0
+    },
+    :engine => {
+      :total => 0
+    },
+    :editor => {
+      :total => 0
     }
   }
 end
@@ -149,6 +157,8 @@ task :bake do
   reset_bake_counters()
   bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.com")
   bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.com")
+  bake(:engine, ENGINE, File.join(DEPLOY, "engine"), "http://pagebout.com/engine")
+  bake(:editor, EDITOR, File.join(DEPLOY, "editor"), "http://pagebout.com/editor")
   print_bake_counters()
 end
 
