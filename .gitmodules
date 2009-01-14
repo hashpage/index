@@ -31,3 +31,6 @@
 [submodule "widgets/pagebout/bookmarks"]
 	path = widgets/pagebout/bookmarks
 	url = git://github.com/pagebout/pbw-bookmarks.git
+[submodule "engine"]
+	path = engine
+	url = git://github.com/pagebout/engine.git
