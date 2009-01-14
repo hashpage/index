@@ -7,6 +7,8 @@ WIDGETS = File.join(ROOT, "widgets")
 SKINS = File.join(ROOT, "skins")
 ENGINE = File.join(ROOT, "engine")
 EDITOR = File.join(ROOT, "editor")
+SYSTEM = File.join(ROOT, "system")
+REDBUG = File.join(ROOT, "redbug")
 
 OSX = PLATFORM =~ /darwin/
 WIN = PLATFORM =~ /win32/
@@ -96,6 +98,12 @@ def reset_bake_counters()
     },
     :editor => {
       :total => 0
+    },
+    :system => {
+      :total => 0
+    },
+    :redbug => {
+      :total => 0
     }
   }
 end
@@ -105,27 +113,27 @@ def print_bake_counters()
   puts "          #{azure("#{$bake_counters[:widget][:total]} widgets")} / #{$bake_counters[:widget][:authors]} authors"
 end
 
-def bake(type, path, dest, url)
+def bake(type, path, dest, url, mode)
   return unless File.exists? path
-  sys("pbdev bake #{type.to_s} --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
+  sys("pbdev bake #{type.to_s} --mode=\"#{mode}\" --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\"")
   $bake_counters[type][:total] += 1
 end
 
-def bake_author(type, path, dest, url)
+def bake_author(type, path, dest, url, mode)
   $bake_counters[type][:authors] += 1
   Dir.glob(File.join(path, "*")) do |path|
     next unless File.directory? path
     name = File.basename(path)
-    bake(type, path, File.join(dest, name), url+"/"+name)
+    bake(type, path, File.join(dest, name), url+"/"+name, mode)
   end
 end
 
-def bake_all(type, path, dest, url)
+def bake_all(type, path, dest, url, mode)
   return unless File.exists? path
   Dir.glob(File.join(path, "*")) do |author_path|
     next unless File.directory? author_path
     name = File.basename(author_path)
-    bake_author(type, author_path, File.join(dest, name), url+"/"+name)
+    bake_author(type, author_path, File.join(dest, name), url+"/"+name, mode)
   end
 end
 
@@ -152,26 +160,19 @@ task :start do
 end
 
 #----------------------------------------------------------------------------
-desc "bake production files"
+desc "bake production files (local)"
 task :bake do
   die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
   sys("rm -rf \"#{DEPLOY}\"")
+  tld = ENV["local"] ? "local" : "com"
+  mode = ENV["local"] ? "development" : "production"
   reset_bake_counters()
-  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.com")
-  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.com")
-  bake(:engine, ENGINE, File.join(DEPLOY, "engine"), "http://pagebout.com/engine")
-  bake(:editor, EDITOR, File.join(DEPLOY, "editor"), "http://pagebout.com/editor")
-  print_bake_counters()
-end
-
-#----------------------------------------------------------------------------
-desc "bake files for local development"
-task :bake_local do
-  die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
-  sys("rm -rf \"#{DEPLOY}\"")
-  reset_bake_counters()
-  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.local")
-  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.local")
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.#{tld}", mode)
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.#{tld}", mode)
+  bake(:engine, ENGINE, File.join(DEPLOY, "engine"), "http://pagebout.#{tld}/engine", mode)
+  bake(:editor, EDITOR, File.join(DEPLOY, "editor"), "http://pagebout.#{tld}/editor", mode)
+  bake(:system, SYSTEM, File.join(DEPLOY, "system"), "http://pagebout.#{tld}/system", mode)
+  bake(:redbug, REDBUG, File.join(DEPLOY, "redbug"), "http://pagebout.#{tld}/redbug", mode)
   print_bake_counters()
 end
 
