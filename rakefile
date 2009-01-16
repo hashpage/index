@@ -151,6 +151,47 @@ def pull_all(root)
   end
 end
 
+def push(dir)
+  puts "cd " + dir_color(dir)
+  Dir.chdir(dir) do
+    sys("git push push 1>&2")
+  end
+end
+
+def push_all(root)
+  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    push(dir[0..-6])
+  end
+  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    push(dir[0..-6])
+  end
+end
+
+def commit(dir, msg)
+  puts "cd " + dir_color(dir)
+  Dir.chdir(dir) do
+    sys("git commit -a -m \"#{msg}\" 1>&2")
+  end
+end
+
+def commit_widgets(root)
+  msg = ENV["msg"] || die("specify commit message (msg param)")
+  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    commit(dir[0..-6], msg)
+  end
+end
+
+def commit_skins(root)
+  msg = ENV["msg"] || die("specify commit message (msg param)")
+  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    commit(dir[0..-6], msg)
+  end
+end
+
 #############################################################################
 
 #----------------------------------------------------------------------------
@@ -166,13 +207,14 @@ task :bake do
   sys("rm -rf \"#{DEPLOY}\"")
   tld = ENV["local"] ? "local" : "com"
   mode = ENV["local"] ? "development" : "production"
+  what = (ENV["only"] || "widgets,skins,engine,editor,system,redbug").split(",")
   reset_bake_counters()
-  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.#{tld}", mode)
-  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.#{tld}", mode)
-  bake(:engine, ENGINE, File.join(DEPLOY, "engine"), "http://pagebout.#{tld}/engine", mode)
-  bake(:editor, EDITOR, File.join(DEPLOY, "editor"), "http://pagebout.#{tld}/editor", mode)
-  bake(:system, SYSTEM, File.join(DEPLOY, "system"), "http://pagebout.#{tld}/system", mode)
-  bake(:redbug, REDBUG, File.join(DEPLOY, "redbug"), "http://pagebout.#{tld}/redbug", mode)
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.#{tld}", mode) if what.include? "widgets"
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.#{tld}", mode) if what.include? "skins"
+  bake(:engine, ENGINE, File.join(DEPLOY, "code", "pagebout", "engine"), "http://code.pagebout.#{tld}/engine", mode) if what.include? "engine"
+  bake(:editor, EDITOR, File.join(DEPLOY, "code", "pagebout", "editor"), "http://code.pagebout.#{tld}/editor", mode) if what.include? "editor"
+  bake(:system, SYSTEM, File.join(DEPLOY, "code", "pagebout", "system"), "http://code.pagebout.#{tld}/system", mode) if what.include? "system"
+  bake(:redbug, REDBUG, File.join(DEPLOY, "code", "pagebout", "redbug"), "http://code.pagebout.#{tld}/redbug", mode) if what.include? "redbug"
   print_bake_counters()
 end
 
@@ -206,6 +248,24 @@ task :add_skin do
   Dir.chdir("skins/#{user}/#{dest}") do
     sys("git remote add push git@github.com:#{user}/#{repo}.git")
   end
+end
+
+#----------------------------------------------------------------------------
+desc "commit widgets, eats :msg"
+task :commit_widgets do
+  commit_widgets(ROOT)
+end
+
+#----------------------------------------------------------------------------
+desc "commit skins, eats :msg"
+task :commit_skins do
+  commit_skins(ROOT)
+end
+
+#----------------------------------------------------------------------------
+desc "push all submodules"
+task :push do
+  push_all(ROOT)
 end
 
 #----------------------------------------------------------------------------
