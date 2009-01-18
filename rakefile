@@ -133,7 +133,7 @@ def bake_all(type, path, dest, url, mode)
   Dir.glob(File.join(path, "*")) do |author_path|
     next unless File.directory? author_path
     name = File.basename(author_path)
-    bake_author(type, author_path, File.join(dest, name), url+"/"+name, mode)
+    bake_author(type, author_path, File.join(dest, name), url+name, mode)
   end
 end
 
@@ -192,6 +192,19 @@ def commit_skins(root)
   end
 end
 
+def url(mode, server, path = nil)
+  path = "" unless path
+  case mode
+  when :production
+    return "http://#{server}.pagebout.com/#{path}"
+  when :simulation
+    return "http://#{server}.pagebout.local/#{path}"
+  when :development
+    return "http://localhost:9876/#{server}/#{path}"
+  end
+  "unknown url mode"
+end
+
 #############################################################################
 
 #----------------------------------------------------------------------------
@@ -205,16 +218,15 @@ desc "bake production files (local)"
 task :bake do
   die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
   sys("rm -rf \"#{DEPLOY}\"")
-  tld = ENV["local"] ? "local" : "com"
-  mode = ENV["local"] ? "development" : "production"
+  mode = ENV["mode"] || "production"
   what = (ENV["only"] || "widgets,skins,engine,editor,system,redbug").split(",")
   reset_bake_counters()
-  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), "http://widgets.pagebout.#{tld}", mode) if what.include? "widgets"
-  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), "http://skins.pagebout.#{tld}", mode) if what.include? "skins"
-  bake(:engine, ENGINE, File.join(DEPLOY, "code", "pagebout", "engine"), "http://code.pagebout.#{tld}/engine", mode) if what.include? "engine"
-  bake(:editor, EDITOR, File.join(DEPLOY, "code", "pagebout", "editor"), "http://code.pagebout.#{tld}/editor", mode) if what.include? "editor"
-  bake(:system, SYSTEM, File.join(DEPLOY, "code", "pagebout", "system"), "http://code.pagebout.#{tld}/system", mode) if what.include? "system"
-  bake(:redbug, REDBUG, File.join(DEPLOY, "code", "pagebout", "redbug"), "http://code.pagebout.#{tld}/redbug", mode) if what.include? "redbug"
+  bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), url(mode.to_sym, "widgets"), mode) if what.include? "widgets"
+  bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), url(mode.to_sym, "skins"), mode) if what.include? "skins"
+  bake(:engine, ENGINE, File.join(DEPLOY, "code", "pagebout", "engine"), url(mode.to_sym, "code", "engine"), mode) if what.include? "engine"
+  bake(:editor, EDITOR, File.join(DEPLOY, "code", "pagebout", "editor"), url(mode.to_sym, "code", "editor"), mode) if what.include? "editor"
+  bake(:system, SYSTEM, File.join(DEPLOY, "code", "pagebout", "system"), url(mode.to_sym, "code", "system"), mode) if what.include? "system"
+  bake(:redbug, REDBUG, File.join(DEPLOY, "code", "pagebout", "redbug"), url(mode.to_sym, "code", "redbug"), mode) if what.include? "redbug"
   print_bake_counters()
 end
 
