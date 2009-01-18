@@ -9,6 +9,7 @@ ENGINE = File.join(ROOT, "engine")
 EDITOR = File.join(ROOT, "editor")
 SYSTEM = File.join(ROOT, "system")
 REDBUG = File.join(ROOT, "redbug")
+FRONT = File.join(ROOT, "front")
 
 OSX = PLATFORM =~ /darwin/
 WIN = PLATFORM =~ /win32/
@@ -103,6 +104,9 @@ def reset_bake_counters()
       :total => 0
     },
     :redbug => {
+      :total => 0
+    },
+    :front => {
       :total => 0
     }
   }
@@ -219,7 +223,7 @@ task :bake do
   die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
   sys("rm -rf \"#{DEPLOY}\"")
   mode = ENV["mode"] || "production"
-  what = (ENV["only"] || "widgets,skins,engine,editor,system,redbug").split(",")
+  what = (ENV["only"] || "widgets,skins,engine,editor,system,redbug,front").split(",")
   reset_bake_counters()
   bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), url(mode.to_sym, "widgets"), mode) if what.include? "widgets"
   bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), url(mode.to_sym, "skins"), mode) if what.include? "skins"
@@ -227,6 +231,7 @@ task :bake do
   bake(:editor, EDITOR, File.join(DEPLOY, "code", "pagebout", "editor"), url(mode.to_sym, "code", "editor"), mode) if what.include? "editor"
   bake(:system, SYSTEM, File.join(DEPLOY, "code", "pagebout", "system"), url(mode.to_sym, "code", "system"), mode) if what.include? "system"
   bake(:redbug, REDBUG, File.join(DEPLOY, "code", "pagebout", "redbug"), url(mode.to_sym, "code", "redbug"), mode) if what.include? "redbug"
+  bake(:front, FRONT, File.join(DEPLOY, "code", "pagebout", "front"), url(mode.to_sym, "code", "front"), mode) if what.include? "front"
   print_bake_counters()
 end
 
