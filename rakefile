@@ -209,6 +209,20 @@ def url(mode, server, path = nil)
   "unknown url mode"
 end
 
+def is_clean?
+  !!sys("git status", false).match(/working directory clean/)
+end
+
+def print_dirty(root)
+  Dir.glob(File.join(root, "**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    dir_path = dir[0..-6]
+    Dir.chdir(dir_path) do
+      puts dir_color(dir_path) unless is_clean?
+    end
+  end
+end
+
 #############################################################################
 
 #----------------------------------------------------------------------------
@@ -283,6 +297,12 @@ end
 desc "push all submodules"
 task :push do
   push_all(ROOT)
+end
+
+#----------------------------------------------------------------------------
+desc "print dirty submodules"
+task :dirty do
+  print_dirty(ROOT)
 end
 
 #----------------------------------------------------------------------------
