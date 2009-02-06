@@ -120,6 +120,7 @@ end
 def bake(type, path, dest, url, mode)
   return unless File.exists? path
   sys("pbdev bake #{type.to_s} --mode=\"#{mode}\" --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\" 1>&2")
+  die("Baking error ...") if $?.exitstatus!=0
   $bake_counters[type][:total] += 1
 end
 
