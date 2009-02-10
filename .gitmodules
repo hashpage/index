@@ -37,3 +37,6 @@
 [submodule "skins/pagebout/blank"]
 	path = skins/pagebout/blank
 	url = git://github.com/pagebout/pbs-blank.git
+[submodule "skins/pagebout/redsilver"]
+	path = skins/pagebout/redsilver
+	url = git://github.com/pagebout/pbs-redsilver.git
