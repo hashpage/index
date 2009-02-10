@@ -34,3 +34,6 @@
 [submodule "engine"]
 	path = engine
 	url = git://github.com/pagebout/engine.git
+[submodule "skins/pagebout/blank"]
+	path = skins/pagebout/blank
+	url = git://github.com/pagebout/pbs-blank.git
