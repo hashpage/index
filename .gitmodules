@@ -40,3 +40,6 @@
 [submodule "skins/pagebout/redsilver"]
 	path = skins/pagebout/redsilver
 	url = git://github.com/pagebout/pbs-redsilver.git
+[submodule "skins/pagebout/simplicity"]
+	path = skins/pagebout/simplicity
+	url = git://github.com/pagebout/pbs-simplicity.git
