@@ -43,3 +43,6 @@
 [submodule "skins/pagebout/simplicity"]
 	path = skins/pagebout/simplicity
 	url = git://github.com/pagebout/pbs-simplicity.git
+[submodule "widgets/pagebout/badge"]
+	path = widgets/pagebout/badge
+	url = git://github.com/pagebout/pbw-badge.git
