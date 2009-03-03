@@ -46,3 +46,6 @@
 [submodule "widgets/pagebout/badge"]
 	path = widgets/pagebout/badge
 	url = git://github.com/pagebout/pbw-badge.git
+[submodule "widgets/pagebout/iframe"]
+	path = widgets/pagebout/iframe
+	url = git://github.com/pagebout/pbw-iframe.git
