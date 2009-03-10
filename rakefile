@@ -118,6 +118,8 @@ def print_bake_counters()
 end
 
 def bake(type, path, dest, url, mode)
+  die "DEPLOY dir is too short (paranoia)" if dest.size<10
+  sys("rm -rf \"#{dest}\"")
   return unless File.exists? path
   sys("pbdev bake #{type.to_s} --mode=\"#{mode}\" --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\" 1>&2")
   die("Baking error ...") if $?.exitstatus!=0
@@ -134,6 +136,8 @@ def bake_author(type, path, dest, url, mode)
 end
 
 def bake_all(type, path, dest, url, mode)
+  die "DEPLOY dir is too short (paranoia)" if dest.size<10
+  sys("rm -rf \"#{dest}\"")
   return unless File.exists? path
   Dir.glob(File.join(path, "*")) do |author_path|
     next unless File.directory? author_path
@@ -235,8 +239,6 @@ end
 #----------------------------------------------------------------------------
 desc "bake production files (local)"
 task :bake do
-  die "DEPLOY dir is too short (paranoia)" if DEPLOY.size<10
-  sys("rm -rf \"#{DEPLOY}\"")
   mode = ENV["mode"] || "production"
   what = (ENV["only"] || "widgets,skins,engine,editor,system,redbug,front").split(",")
   reset_bake_counters()
