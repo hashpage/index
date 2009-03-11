@@ -2,7 +2,7 @@
 
 This is the collaborative space for PageBout developers. 
 
-## How it works?
+## How does it work?
 
 This repository is a git [super-project](http://book.git-scm.com/5_submodules.html). It means this is central repository which points to many submodules. Submodules are other git repositories containing widgets, skins and other PageBout assets. They can be located anywhere on the internet. We prefer [GitHub](http://github.com). It is a cool place, isn't it?
 
