@@ -185,6 +185,30 @@ def commit(dir, msg)
   end
 end
 
+def fix_skins(root)
+  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    fn = dir[0..-6]
+    m = fn.match(/skins\/([^\/]+)\/([^\/]+)/)
+    repo = m[2]
+    Dir.chdir(fn) do 
+      sys("git remote add push git@github.com:hashpage/pbs-#{repo}.git")
+    end
+  end
+end
+
+def fix_widgets(root)
+  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
+    next if dir == File.join(root, ".git")
+    fn = dir[0..-6]
+    m = fn.match(/widgets\/([^\/]+)\/([^\/]+)/)
+    repo = m[2]
+    Dir.chdir(fn) do 
+      sys("git remote add push git@github.com:hashpage/pbw-#{repo}.git")
+    end
+  end
+end
+
 def commit_widgets(root)
   msg = ENV["msg"] || die("specify commit message (msg param)")
   Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
@@ -264,7 +288,7 @@ task :add_widget do
   user = ENV["user"] or die("you have to specify github user (user=defunkt)")
   repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbw-coolbar)")
   dest = repo
-  dest = repo[4..-1] if repo=~/^pbw-/
+  dest = repo[4..-1] if repo=~/^hpw-/
   sys("git submodule add git://github.com/#{user}/#{repo}.git widgets/#{user}/#{dest}")
   Dir.chdir("widgets/#{user}/#{dest}") do
     sys("git remote add push git@github.com:#{user}/#{repo}.git")
@@ -277,11 +301,23 @@ task :add_skin do
   user = ENV["user"] or die("you have to specify github user (user=defunkt)")
   repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbs-skinner)")
   dest = repo
-  dest = repo[4..-1] if repo=~/^pbs-/
+  dest = repo[4..-1] if repo=~/^hps-/
   sys("git submodule add git://github.com/#{user}/#{repo}.git skins/#{user}/#{dest}")
   Dir.chdir("skins/#{user}/#{dest}") do
     sys("git remote add push git@github.com:#{user}/#{repo}.git")
   end
+end
+
+#----------------------------------------------------------------------------
+desc "fixes remotes in skins"
+task :fix_skins do
+  fix_skins(ROOT)
+end
+
+#----------------------------------------------------------------------------
+desc "fixes remotes in widgets"
+task :fix_widgets do
+  fix_widgets(ROOT)
 end
 
 #----------------------------------------------------------------------------
