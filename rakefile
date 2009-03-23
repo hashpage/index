@@ -24,7 +24,7 @@ rescue LoadError
     $: << "/Users/darwin/code/pbdev/lib"
     require 'pbdev'
   rescue LoadError
-    raise 'Please install pbdev: sudo gem install pagebout-pbdev --source http://gems.github.com'
+    raise 'Please install pbdev: sudo gem install hashpage-pbdev --source http://gems.github.com'
   end
 end
 include PBDev
@@ -205,9 +205,9 @@ def url(mode, server, path = nil)
   path = "" unless path
   case mode
   when :production
-    return "http://#{server}.pagebout.com/#{path}"
+    return "http://#{server}.hashpage.com/#{path}"
   when :simulation
-    return "http://#{server}.pagebout.local/#{path}"
+    return "http://#{server}.hashpage.local/#{path}"
   when :development
     return "http://localhost:9876/#{server}/#{path}"
   end
@@ -244,11 +244,11 @@ task :bake do
   reset_bake_counters()
   bake_all(:widget, WIDGETS, File.join(DEPLOY, "widgets"), url(mode.to_sym, "widgets"), mode) if what.include? "widgets"
   bake_all(:skin, SKINS, File.join(DEPLOY, "skins"), url(mode.to_sym, "skins"), mode) if what.include? "skins"
-  bake(:engine, ENGINE, File.join(DEPLOY, "code", "pagebout", "engine"), url(mode.to_sym, "code", "engine"), mode) if what.include? "engine"
-  bake(:editor, EDITOR, File.join(DEPLOY, "code", "pagebout", "editor"), url(mode.to_sym, "code", "editor"), mode) if what.include? "editor"
-  bake(:system, SYSTEM, File.join(DEPLOY, "code", "pagebout", "system"), url(mode.to_sym, "code", "system"), mode) if what.include? "system"
-  bake(:redbug, REDBUG, File.join(DEPLOY, "code", "pagebout", "redbug"), url(mode.to_sym, "code", "redbug"), mode) if what.include? "redbug"
-  bake(:front, FRONT, File.join(DEPLOY, "code", "pagebout", "front"), url(mode.to_sym, "code", "front"), mode) if what.include? "front"
+  bake(:engine, ENGINE, File.join(DEPLOY, "code", "hashpage", "engine"), url(mode.to_sym, "code", "engine"), mode) if what.include? "engine"
+  bake(:editor, EDITOR, File.join(DEPLOY, "code", "hashpage", "editor"), url(mode.to_sym, "code", "editor"), mode) if what.include? "editor"
+  bake(:system, SYSTEM, File.join(DEPLOY, "code", "hashpage", "system"), url(mode.to_sym, "code", "system"), mode) if what.include? "system"
+  bake(:redbug, REDBUG, File.join(DEPLOY, "code", "hashpage", "redbug"), url(mode.to_sym, "code", "redbug"), mode) if what.include? "redbug"
+  bake(:front, FRONT, File.join(DEPLOY, "code", "hashpage", "front"), url(mode.to_sym, "code", "front"), mode) if what.include? "front"
   print_bake_counters()
 end
 
