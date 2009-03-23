@@ -1,51 +1,51 @@
-[submodule "widgets/pagebout/tabs"]
-	path = widgets/pagebout/tabs
-	url = git://github.com/pagebout/pbw-tabs.git
-[submodule "skins/pagebout/start"]
-	path = skins/pagebout/start
-	url = git://github.com/pagebout/pbs-start.git
-[submodule "widgets/pagebout/bio"]
-	path = widgets/pagebout/bio
-	url = git://github.com/pagebout/pbw-bio.git
-[submodule "widgets/pagebout/presence"]
-	path = widgets/pagebout/presence
-	url = git://github.com/pagebout/pbw-presence.git
-[submodule "widgets/pagebout/popeye"]
-	path = widgets/pagebout/popeye
-	url = git://github.com/pagebout/pbw-popeye.git
-[submodule "widgets/pagebout/pictures"]
-	path = widgets/pagebout/pictures
-	url = git://github.com/pagebout/pbw-pictures.git
-[submodule "widgets/pagebout/videos"]
-	path = widgets/pagebout/videos
-	url = git://github.com/pagebout/pbw-videos.git
-[submodule "widgets/pagebout/tweets"]
-	path = widgets/pagebout/tweets
-	url = git://github.com/pagebout/pbw-tweets.git
-[submodule "widgets/pagebout/activity"]
-	path = widgets/pagebout/activity
-	url = git://github.com/pagebout/pbw-activity.git
-[submodule "widgets/pagebout/blog"]
-	path = widgets/pagebout/blog
-	url = git://github.com/pagebout/pbw-blog.git
-[submodule "widgets/pagebout/bookmarks"]
-	path = widgets/pagebout/bookmarks
-	url = git://github.com/pagebout/pbw-bookmarks.git
+[submodule "widgets/hashpage/tabs"]
+	path = widgets/hashpage/tabs
+	url = git://github.com/hashpage/pbw-tabs.git
+[submodule "skins/hashpage/start"]
+	path = skins/hashpage/start
+	url = git://github.com/hashpage/pbs-start.git
+[submodule "widgets/hashpage/bio"]
+	path = widgets/hashpage/bio
+	url = git://github.com/hashpage/pbw-bio.git
+[submodule "widgets/hashpage/presence"]
+	path = widgets/hashpage/presence
+	url = git://github.com/hashpage/pbw-presence.git
+[submodule "widgets/hashpage/popeye"]
+	path = widgets/hashpage/popeye
+	url = git://github.com/hashpage/pbw-popeye.git
+[submodule "widgets/hashpage/pictures"]
+	path = widgets/hashpage/pictures
+	url = git://github.com/hashpage/pbw-pictures.git
+[submodule "widgets/hashpage/videos"]
+	path = widgets/hashpage/videos
+	url = git://github.com/hashpage/pbw-videos.git
+[submodule "widgets/hashpage/tweets"]
+	path = widgets/hashpage/tweets
+	url = git://github.com/hashpage/pbw-tweets.git
+[submodule "widgets/hashpage/activity"]
+	path = widgets/hashpage/activity
+	url = git://github.com/hashpage/pbw-activity.git
+[submodule "widgets/hashpage/blog"]
+	path = widgets/hashpage/blog
+	url = git://github.com/hashpage/pbw-blog.git
+[submodule "widgets/hashpage/bookmarks"]
+	path = widgets/hashpage/bookmarks
+	url = git://github.com/hashpage/pbw-bookmarks.git
 [submodule "engine"]
 	path = engine
-	url = git://github.com/pagebout/engine.git
-[submodule "skins/pagebout/blank"]
-	path = skins/pagebout/blank
-	url = git://github.com/pagebout/pbs-blank.git
-[submodule "skins/pagebout/redsilver"]
-	path = skins/pagebout/redsilver
-	url = git://github.com/pagebout/pbs-redsilver.git
-[submodule "skins/pagebout/simplicity"]
-	path = skins/pagebout/simplicity
-	url = git://github.com/pagebout/pbs-simplicity.git
-[submodule "widgets/pagebout/badge"]
-	path = widgets/pagebout/badge
-	url = git://github.com/pagebout/pbw-badge.git
-[submodule "widgets/pagebout/iframe"]
-	path = widgets/pagebout/iframe
-	url = git://github.com/pagebout/pbw-iframe.git
+	url = git://github.com/hashpage/engine.git
+[submodule "skins/hashpage/blank"]
+	path = skins/hashpage/blank
+	url = git://github.com/hashpage/pbs-blank.git
+[submodule "skins/hashpage/redsilver"]
+	path = skins/hashpage/redsilver
+	url = git://github.com/hashpage/pbs-redsilver.git
+[submodule "skins/hashpage/simplicity"]
+	path = skins/hashpage/simplicity
+	url = git://github.com/hashpage/pbs-simplicity.git
+[submodule "widgets/hashpage/badge"]
+	path = widgets/hashpage/badge
+	url = git://github.com/hashpage/pbw-badge.git
+[submodule "widgets/hashpage/iframe"]
+	path = widgets/hashpage/iframe
+	url = git://github.com/hashpage/pbw-iframe.git
