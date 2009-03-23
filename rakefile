@@ -192,7 +192,8 @@ def fix_skins(root)
     m = fn.match(/skins\/([^\/]+)\/([^\/]+)/)
     repo = m[2]
     Dir.chdir(fn) do 
-      sys("git remote add push git@github.com:hashpage/pbs-#{repo}.git")
+      sys("git remote rm push")
+      sys("git remote add push git@github.com:hashpage/hps-#{repo}.git")
     end
   end
 end
@@ -204,7 +205,8 @@ def fix_widgets(root)
     m = fn.match(/widgets\/([^\/]+)\/([^\/]+)/)
     repo = m[2]
     Dir.chdir(fn) do 
-      sys("git remote add push git@github.com:hashpage/pbw-#{repo}.git")
+      sys("git remote rm push")
+      sys("git remote add push git@github.com:hashpage/hpw-#{repo}.git")
     end
   end
 end
