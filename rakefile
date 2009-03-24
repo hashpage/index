@@ -18,16 +18,16 @@ NIX = !(OSX || WIN)
 require "rubygems"
 
 begin
-  require 'pbdev'
+  require 'hpdev'
 rescue LoadError
   begin
-    $: << "/Users/darwin/code/pbdev/lib"
-    require 'pbdev'
+    $: << "/Users/darwin/code/hpdev/lib"
+    require 'hpdev'
   rescue LoadError
-    raise 'Please install pbdev: sudo gem install hashpage-pbdev --source http://gems.github.com'
+    raise 'Please install hpdev: sudo gem install hashpage-hpdev --source http://gems.github.com'
   end
 end
-include PBDev
+include HPDev
 
 # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
 begin
@@ -121,7 +121,7 @@ def bake(type, path, dest, url, mode)
   die "DEPLOY dir is too short (paranoia)" if dest.size<10
   sys("rm -rf \"#{dest}\"")
   return unless File.exists? path
-  sys("pbdev bake #{type.to_s} --mode=\"#{mode}\" --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\" 1>&2")
+  sys("hpdev bake #{type.to_s} --mode=\"#{mode}\" --url=\"#{url}\" \"#{relativize_path(path)}\" \"#{relativize_path(dest)}\" 1>&2")
   die("Baking error ...") if $?.exitstatus!=0
   $bake_counters[type][:total] += 1
 end
@@ -259,7 +259,7 @@ end
 #----------------------------------------------------------------------------
 desc "start dev server"
 task :start do
-  sys("pbdev 1>&2")
+  sys("hpdev 1>&2")
 end
 
 #----------------------------------------------------------------------------
