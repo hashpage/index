@@ -49,3 +49,6 @@
 [submodule "widgets/hashpage/iframe"]
 	path = widgets/hashpage/iframe
 	url = git://github.com/hashpage/hpw-iframe.git
+[submodule "widgets/hashpage/gdoc"]
+	path = widgets/hashpage/gdoc
+	url = git://github.com/hashpage/hpw-gdoc.git
