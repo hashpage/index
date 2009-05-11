@@ -1,0 +1,295 @@
+#hp-main {
+    margin: 0px 30px;
+}
+
+.hp-tabs-nav a, .hp-tabs-nav a span {
+    background-image:url(images/tab.png) !important;
+}
+
+#contents {
+padding:0 1em;
+}
+
+#contents img {
+height:auto;
+max-width:100%;
+width:auto;
+}
+
+#contents ol {
+line-height:130%;
+margin:1.5em auto;
+padding-right:1.5em;
+padding-left:3em;
+width:46em;
+}
+
+#contents ol li {
+background-color:#fafafa;
+border:solid 1px #bbb;
+margin-bottom:.8em;
+padding:1em;
+-moz-border-radius:0.6em;
+-webkit-border-radius:0.6em;
+}
+
+#contents ol li img {
+float:right;
+padding-top:0;
+padding-bottom:1em;
+padding-left:.6em;
+padding-right:.6em;
+}
+
+#contents ol.courses {
+background-color:#fafafa;
+border:solid 1px #bbb;
+list-style:none;
+margin-bottom:1.4em;
+margin-left:auto;
+margin-right:auto;
+padding:.6em 1em;
+text-align:justify;
+width:45em;
+-moz-border-radius:0.6em;
+-webkit-border-radius:0.6em;
+}
+
+#contents ol.courses li {
+border:0;
+margin-bottom:.5em;
+padding:0;
+}
+
+#contents p {
+font-size:110%;
+line-height:140%;
+margin-left:auto;
+margin-right:auto;
+margin-top:1em;
+text-align:justify;
+width:45em;
+}
+
+#contents p img.left {
+float:left;
+padding-right:1em;
+position:relative;
+z-index:200;
+}
+
+#contents p img.right {
+float:right;
+padding-left:1em;
+position:relative;
+z-index:200;
+}
+
+#contents p img.right-icon {
+margin-top:1.2em;
+margin-right:1em;
+margin-left:1em;
+position:relative;
+z-index:200;
+float:right;
+}
+
+#contents p.caption {
+font-size:100%;
+font-style:italic;
+text-align:center;
+margin-top:.5em;
+margin-bottom:1.5em;
+}
+
+#contents p.footnote {
+font-size:90%;
+font-style:italic;
+width:54em;
+}
+
+#contents p.left {
+font-size:100%;
+text-align:left;
+}
+
+#contents p.resume {
+font-size:105%;
+}
+
+#contents p.right {
+font-size:100%;
+text-align:right;
+}
+
+#contents ul {
+line-height:130%;
+margin:0em auto;
+margin-bottom:1.5em;
+padding-right:1.5em;
+padding-left:3em;
+width:46em;
+}
+
+#contents ul li {
+margin-bottom:.8em;
+}
+
+#contents ul li p{
+width:40em;
+}
+
+#contents ul li ul {
+font-size:100%;
+}
+
+#contents ul.index {
+margin-top:0.4em;
+}
+
+#contents ul.index li {
+margin-bottom:.5em;
+}
+
+#copyright {
+clear:both;
+color:#aaa;
+font-size:small;
+padding-bottom:1em;
+text-align:center;
+}
+
+#footer {
+background:url(images/cloud/cloud-bottom.png) bottom repeat-x;
+}
+
+#footer p {
+background:url(images/cloud/cloud-bottom-left.png) bottom left no-repeat;
+margin:0;
+}
+
+#footer p a {
+background:url(images/cloud/cloud-bottom-right.png) bottom right no-repeat;
+color:#999;
+display:block;
+font-size:85%;
+padding:1.2em 5.7em 3.2em 2em;
+text-align:right;
+text-decoration:none;
+}
+
+#header {
+background:url(images/cloud/cloud-top.png) top repeat-x;
+position:relative;
+z-index:75;
+}
+
+#inner-prettification {
+background:url(images/cloud/cloud-right.png) right repeat-y;
+}
+
+#main {
+clear:both;
+margin:0 auto 10px;
+width:1010px;
+margin-top: 40px;
+}
+
+#outer-prettification {
+background:#eee url(images/cloud/cloud-left.png) left repeat-y;
+}
+
+#window {
+clear:both;
+margin:5px;
+padding:0;
+}
+
+a {
+text-decoration:none;
+}
+
+a img {
+border:0;
+}
+
+a:hover {
+color:#357aa0;
+text-decoration:none;
+}
+
+a:link {
+color:#777;
+}
+
+a:visited {
+color:#777;
+}
+
+acronym {
+cursor:help;
+}
+
+body {
+background-color:#fff;
+color:#000;
+font-family: 'Lucida Grande', 'Bitstream Vera Sans', Verdana, sans-serif;
+font-size:80%;
+margin:0;
+padding:0;
+}
+
+h1#title {
+background:url(images/cloud/cloud-top-left.png) top left no-repeat;
+font-size:220%;
+margin-top:5px;
+}
+
+h1#title a {
+background:url(images/cloud/cloud-top-right.png) top right no-repeat;
+color:#000;
+display:block;
+font-size:80%;
+font-weight:400;
+padding:1em 2.6em 0;
+text-decoration:none;
+}
+
+
+h2 {
+color:#000;
+display:block;
+font-size:150%;
+font-weight:400;
+padding:.3em 0 0 2.8em;
+text-decoration:none;
+}
+
+h3 {
+color:#000;
+display:block;
+font-size:130%;
+font-style:italic;
+font-weight:400;
+padding:.35em 0 0 3.5em;
+text-decoration:none;
+}
+
+hr {
+height:1px;
+text-align:center;
+width:90%;
+}
+
+pre {
+overflow:auto;
+}
+
+#top {
+font-size: 0.1em;
+height: 0.1em;
+}
+
+#top a{
+color: #ffffff;
+}

@@ -1,0 +1,19 @@
+.tweet {
+    clear: both;
+}
+
+.tweet .icon {
+    float: left;
+}
+
+.tweet .body {
+    margin-left: 20px;
+}
+
+.tweet .date {
+    padding-left: 5px;
+    color: gray;
+    font-size: 9px;
+    line-height: 18px;
+    white-space: nowrap;
+}

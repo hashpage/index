@@ -160,73 +160,6 @@ def pull_all(root)
   end
 end
 
-def push(dir)
-  puts "cd " + dir_color(dir)
-  Dir.chdir(dir) do
-    sys("git push push 1>&2")
-  end
-end
-
-def push_all(root)
-  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    push(dir[0..-6])
-  end
-  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    push(dir[0..-6])
-  end
-end
-
-def commit(dir, msg)
-  puts "cd " + dir_color(dir)
-  Dir.chdir(dir) do
-    sys("git commit -a -m \"#{msg}\" 1>&2")
-  end
-end
-
-def fix_skins(root)
-  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    fn = dir[0..-6]
-    m = fn.match(/skins\/([^\/]+)\/([^\/]+)/)
-    repo = m[2]
-    Dir.chdir(fn) do 
-      sys("git remote rm push")
-      sys("git remote add push git@github.com:hashpage/hps-#{repo}.git")
-    end
-  end
-end
-
-def fix_widgets(root)
-  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    fn = dir[0..-6]
-    m = fn.match(/widgets\/([^\/]+)\/([^\/]+)/)
-    repo = m[2]
-    Dir.chdir(fn) do 
-      sys("git remote rm push")
-      sys("git remote add push git@github.com:hashpage/hpw-#{repo}.git")
-    end
-  end
-end
-
-def commit_widgets(root)
-  msg = ENV["msg"] || die("specify commit message (msg param)")
-  Dir.glob(File.join(root, "widgets/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    commit(dir[0..-6], msg)
-  end
-end
-
-def commit_skins(root)
-  msg = ENV["msg"] || die("specify commit message (msg param)")
-  Dir.glob(File.join(root, "skins/**/.git")) do |dir|
-    next if dir == File.join(root, ".git")
-    commit(dir[0..-6], msg)
-  end
-end
-
 def url(mode, server, path = nil)
   path = "" unless path
   case mode
@@ -283,63 +216,6 @@ desc "pull all submodules"
 task :pull do
   pull_all(ROOT)
 end
-
-#----------------------------------------------------------------------------
-desc "add widget into index, eats :user and :repo"
-task :add_widget do
-  user = ENV["user"] or die("you have to specify github user (user=defunkt)")
-  repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbw-coolbar)")
-  dest = repo
-  dest = repo[4..-1] if repo=~/^hpw-/
-  sys("git submodule add git://github.com/#{user}/#{repo}.git widgets/#{user}/#{dest}")
-  Dir.chdir("widgets/#{user}/#{dest}") do
-    sys("git remote add push git@github.com:#{user}/#{repo}.git")
-  end
-end
-
-#----------------------------------------------------------------------------
-desc "add skin into index, eats :user and :repo"
-task :add_skin do
-  user = ENV["user"] or die("you have to specify github user (user=defunkt)")
-  repo = ENV["repo"] or die("you have to specify github user's repo name (repo=pbs-skinner)")
-  dest = repo
-  dest = repo[4..-1] if repo=~/^hps-/
-  sys("git submodule add git://github.com/#{user}/#{repo}.git skins/#{user}/#{dest}")
-  Dir.chdir("skins/#{user}/#{dest}") do
-    sys("git remote add push git@github.com:#{user}/#{repo}.git")
-  end
-end
-
-#----------------------------------------------------------------------------
-desc "fixes remotes in skins"
-task :fix_skins do
-  fix_skins(ROOT)
-end
-
-#----------------------------------------------------------------------------
-desc "fixes remotes in widgets"
-task :fix_widgets do
-  fix_widgets(ROOT)
-end
-
-#----------------------------------------------------------------------------
-desc "commit widgets, eats :msg"
-task :commit_widgets do
-  commit_widgets(ROOT)
-end
-
-#----------------------------------------------------------------------------
-desc "commit skins, eats :msg"
-task :commit_skins do
-  commit_skins(ROOT)
-end
-
-#----------------------------------------------------------------------------
-desc "push all submodules"
-task :push do
-  push_all(ROOT)
-end
-
 #----------------------------------------------------------------------------
 desc "print dirty submodules"
 task :dirty do
@@ -347,5 +223,4 @@ task :dirty do
 end
 
 #----------------------------------------------------------------------------
-
 task :default => :start

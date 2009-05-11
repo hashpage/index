@@ -1,0 +1,7 @@
+--- 
+tags: 
+- hashpage
+- badge
+origin: git://github.com/hashpage/hpw-badge.git
+description: Wraps html snippet into a widget. Great for embedding badges from other websites.
+home: http://github.com/hashpage/hpw-badge

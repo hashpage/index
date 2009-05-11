@@ -1,0 +1,8 @@
+.hashpage-videos .video {
+    margin: 5px;
+    float: left;
+}
+
+.hashpage-videos .player {
+    clear: both;
+}
