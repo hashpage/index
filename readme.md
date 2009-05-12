@@ -1,15 +1,35 @@
 # HashPage Index
 
-This is the collaborative space for HashPage developers. 
+This is the collaborative space for [HashPage](http://hashpage.com) developers. 
 
 ## How does it work?
 
-This repository is a git [super-project](http://book.git-scm.com/5_submodules.html). It means this is central repository which points to many submodules. Submodules are other git repositories containing widgets, skins and other HashPage assets. They can be located anywhere on the internet. We prefer [GitHub](http://github.com). It is a cool place, isn't it?
+We automatically bake skins and widgets in this repository and publish them on live [hashpage.com](http://hashpage.com) to be available to users.
 
-## How can I get my asset into index?
+## Structure
 
-Send a personal message to [user HashPage on GitHub](http://github.com/hashpage) and include link to your git repository, he will then add it to the index.
+Just look around. It should be self-explanatory.
 
-## How are the assets deployed on HashPage?
+Skins and widgets have following directory structure:
+
+    /skins/<author>/<name>/<version>/**
+    /skins/<author>/<name>/readme.md
+    /skins/<author>/<name>/meta.yaml
+
+Default and required version is "master". Other versions are optional. File meta.yaml contains meta data about widget or skin. Use your github username in place of author (it is easier for us to track).
+
+## How can I add my asset into index?
+
+1. fork index repository
+2. add your author and widget/skin directory
+3. hack!
+4. send pull request to [user "hashpage" on GitHub](http://github.com/hashpage) on GitHub
+
+## How are the assets deployed on hashpage.com ?
 
 Every time we run deploy script, all assets are baked for production and uploaded to HashPage server. You can see current index version in top-right corner in HashPage editor.
+
+You can browse current production state here:
+
+* [http://widgets.hashpage.com](http://widgets.hashpage.com)
+* [http://skins.hashpage.com](http://skins.hashpage.com)
