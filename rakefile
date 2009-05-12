@@ -105,8 +105,8 @@ def reset_bake_counters()
 end
 
 def print_bake_counters()
-  puts "Processed #{azure("#{$bake_counters[:skin][:total]} skins")} / #{$bake_counters[:skin][:authors]} authors"
-  puts "          #{azure("#{$bake_counters[:widget][:total]} widgets")} / #{$bake_counters[:widget][:authors]} authors"
+  puts "Processed #{blue("#{$bake_counters[:skin][:total]} skins")} / #{$bake_counters[:skin][:authors]} authors"
+  puts "          #{blue("#{$bake_counters[:widget][:total]} widgets")} / #{$bake_counters[:widget][:authors]} authors"
 end
 
 def bake(type, path, dest, url, mode)
