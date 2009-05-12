@@ -4,7 +4,7 @@ This is the collaborative space for [HashPage](http://hashpage.com) developers.
 
 ## How does it work?
 
-We automatically bake skins and widgets in this repository and publish them on live [hashpage.com](http://hashpage.com) to be available to users.
+We automatically bake skins and widgets from this repository and publish them on live [hashpage.com](http://hashpage.com) to make them available to users.
 
 ## Structure
 
@@ -23,7 +23,7 @@ Default and required version is "master". Other versions are optional. File meta
 1. fork index repository
 2. add your author and widget/skin directory
 3. hack!
-4. send pull request to [user "hashpage" on GitHub](http://github.com/hashpage) on GitHub
+4. send pull request to [user "hashpage" on GitHub](http://github.com/hashpage)
 
 ## How are the assets deployed on hashpage.com ?
 
