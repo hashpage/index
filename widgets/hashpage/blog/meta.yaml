@@ -2,6 +2,5 @@
 tags: 
 - hashpage
 - blog
-origin: git://github.com/hashpage/hpw-blog.git
 description: Simple blog widget
-home: http://github.com/hashpage/hpw-blog
+home: http://github.com/hashpage/index

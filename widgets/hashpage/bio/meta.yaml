@@ -2,6 +2,5 @@
 tags: 
 - hashpage
 - bio
-origin: git://github.com/hashpage/hpw-bio.git
 description: Bio displays personal info from profiles on various social sites (LinkedIn, Twitter, etc.)
-home: http://github.com/hashpage/hpw-bio
+home: http://github.com/hashpage/index
