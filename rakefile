@@ -139,7 +139,7 @@ def bake_all(type, path, dest, url, mode)
 end
 
 def pull(dir)
-  puts "cd " + dir_color(dir)
+  puts "cd " + blue(dir)
   Dir.chdir(dir) do
     sys("git pull 1>&2")
   end
@@ -174,7 +174,7 @@ def print_dirty(root)
     next if dir == File.join(root, ".git")
     dir_path = dir[0..-6]
     Dir.chdir(dir_path) do
-      puts dir_color(dir_path) unless is_clean?
+      puts blue(dir_path) unless is_clean?
     end
   end
 end
